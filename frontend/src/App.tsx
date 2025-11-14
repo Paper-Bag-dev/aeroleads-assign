@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Route, Routes } from "react-router";
+import Blogs from "./components/Blogs";
+import AutoDialer from "./components/AutoDialer";
+import { useState } from "react";
+import BlogPage from "./components/BlogPage";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export interface BlogInterface {
+  title: string;
+  slug: string;
+  content: string;
 }
 
-export default App
+const App = () => {
+  const [blogs, setBlogs] = useState<BlogInterface[]>([]);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AutoDialer />} />
+        <Route
+          path="/blogs"
+          element={<Blogs blogs={blogs} setBlogs={setBlogs} />}
+        />
+
+        {blogs.map((b) => (
+          <Route
+            key={b.slug}
+            path={`/blogs/${b.slug}`}
+            element={<BlogPage blog={b} />}
+          />
+        ))}
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;

@@ -49,7 +49,9 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
+gem 'rack-cors'
 gem "dotenv-rails", "~> 3.1"
 
 gem "twilio-ruby", "~> 7.8"
 gem "sinatra", "~> 4.2"
+gem "ruby-openai"

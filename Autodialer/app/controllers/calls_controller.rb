@@ -1,4 +1,3 @@
-# app/controllers/calls_controller.rb
 class CallsController < ApplicationController
   require "twilio-ruby"
   
